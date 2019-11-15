@@ -25,7 +25,10 @@
       </router-link>
     </nav>
 
-    <div class="nav_background" v-bind:class="{visible: navigation_open}"></div>
+    <div
+      class="nav_background"
+      v-bind:class="{visible: navigation_open}"
+      v-on:click="toggle_navigation()"/>
 
     <main>
       <router-view class="router_view"/>
@@ -123,16 +126,16 @@ body {
 @keyframes logo_rotation {
   0% {transform: rotate(0deg);}
   100% {transform: rotate(360deg);}
-
 }
 
 /* HEADER */
 header {
-  position: relative;
-  z-index: 11;
   grid-area: header;
 
+  /* shadows */
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  position: relative;
+  z-index: 11;
 
   background-color: #444444;
   color: white;
@@ -141,7 +144,25 @@ header {
 
   display: flex;
   align-items: stretch;
+
+
+  animation-name: top_apparition;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+
 }
+
+@keyframes top_apparition {
+  0% {transform: translateY(-200%);}
+  100% {transform: translateY(0);}
+}
+
+@keyframes left_apparition {
+  0% {transform: translateX(-200%);}
+  100% {transform: translateX(0);}
+}
+
 
 header > * {
   display: flex;
@@ -150,6 +171,8 @@ header > * {
   margin: 10px;
   /* keep only one margin width between elements */
   margin-right: 0px;
+
+
 }
 
 header > *:last-child {
@@ -181,6 +204,17 @@ nav {
   flex-direction: column;
   align-items: stretch;
   border-right: 1px solid #dddddd;
+
+  background-color: white;
+
+  transition: transform 0.5s;
+
+  /* ADDS DELAY TO TRANSITION */
+  /* THIS overrules the transition */
+  animation-name: left_apparition;
+  animation-duration: 0.5s;
+  animation-fill-mode: backwards;
+  animation-iteration-count: 1;
 
 }
 
@@ -233,6 +267,13 @@ main {
   grid-area: main;
   padding: 15px;
   overflow-y: auto;
+
+
+  animation-name: top_apparition;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+  animation-delay: 0.25s;
 }
 
 
@@ -276,16 +317,15 @@ footer .application_info{
     z-index: 10;
     height: 100%;
     width: 200px; /* matching grid template */
+
+    animation-name: none;
+
+  }
+
+  nav:not(.open){
     transform: translateX(-100%);
-    background-color: white;
-    transition: transform 0.5s;
-
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
 
-  nav.open{
-    transform: translateX(0%);
-  }
 
 
   .nav_background.visible {
