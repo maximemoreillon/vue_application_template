@@ -1,0 +1,302 @@
+<template>
+  <div class="application_wrapper">
+
+    <header>
+      <span
+        class="mdi navigation_control"
+        v-bind:class="navigation_control_icon"
+        v-on:click="toggle_navigation()"/>
+      <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
+      <span class="application_name">{{applicationName}}</span>
+    </header>
+
+    <!-- What if there is no router? -->
+    <nav v-bind:class="{open: navigation_open}">
+      <!-- NAV items must be passed as props -->
+      <router-link
+        v-for="(navigationItem, index) in navigation"
+        v-bind:key="index"
+        v-bind:to="navigationItem.route">
+        <span
+          class="mdi"
+          v-bind:class="'mdi-' + navigationItem.icon">
+          {{navigationItem.label}}
+        </span>
+      </router-link>
+    </nav>
+
+    <div class="nav_background" v-bind:class="{visible: navigation_open}"></div>
+
+    <main>
+      <router-view class="router_view"/>
+      <footer>
+        <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
+        <div class="application_info">
+          <div class="application_name">{{applicationName}}</div>
+          <div class="author_name">Maxime MOREILLON</div>
+        </div>
+      </footer>
+    </main>
+
+
+
+
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'AppTemplate',
+  props: {
+    applicationName: {
+      type: String,
+    },
+    navigation: {
+      type: Array,
+      default(){
+        return []
+      },
+    },
+  },
+  data(){
+    return {
+      navigation_open: false,
+    }
+  },
+  methods: {
+    toggle_navigation(){
+      this.navigation_open = !this.navigation_open
+    }
+  },
+  computed: {
+    navigation_control_icon(){
+      if(this.navigation_open) return "mdi-backburger"
+      else return "mdi-menu"
+    }
+  }
+}
+</script>
+
+<!-- Not scoped so as to access body and app -->
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.application_wrapper{
+
+  position: relative;
+
+  display: grid;
+
+  /* font parameters */
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* default text color */
+  color: #111111;
+
+  height: 100vh;
+
+  /* IE can go and die */
+  display: grid;
+  grid-template-areas:
+  'header header'
+  'nav main';
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+.rotating_logo {
+  animation-name: logo_rotation;
+  animation-duration: 60s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes logo_rotation {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+
+}
+
+/* HEADER */
+header {
+  position: relative;
+  z-index: 11;
+  grid-area: header;
+
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+  background-color: #444444;
+  color: white;
+
+  font-size: 150%;
+
+  display: flex;
+  align-items: stretch;
+}
+
+header > * {
+  display: flex;
+  align-items: center;
+
+  margin: 10px;
+  /* keep only one margin width between elements */
+  margin-right: 0px;
+}
+
+header > *:last-child {
+  margin-right: 10px;
+}
+
+header .rotating_logo {
+  width: 35px;
+}
+
+header .aligned-right{
+  margin-left: auto
+}
+
+header .navigation_control{
+  transform: translateX(-200%);
+  transition: transform 0.5s;
+  cursor: pointer;
+}
+
+
+/* NAV */
+nav {
+  grid-area: nav;
+
+  margin: 15px 0; /* for the border not to hit ends */
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-right: 1px solid #dddddd;
+
+}
+
+nav > * {
+
+  font-size: 120%;
+  text-align: center;
+
+  padding: 10px;
+
+  text-decoration: none;
+  color: #111111;
+
+  transition: border-color 0.25s;
+
+  border-right: 3px solid transparent;
+}
+
+nav a:hover {
+  border-right: 3px solid #666666;
+}
+nav a.router-link-exact-active {
+  border-right: 3px solid #c00000;
+}
+
+nav .mdi {
+  /* space between icon and text */
+  margin-right: 5px;
+}
+
+.nav_background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+
+
+
+
+
+main {
+  grid-area: main;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+
+footer {
+  grid-area: footer;
+
+  /* clearing the nav bar and leaving space for the border top*/
+  margin: 0 10%;
+
+  border-top: 1px solid #dddddd;
+
+  padding: 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+footer .rotating_logo {
+  width: 40px;
+}
+
+footer .application_info{
+  margin-left: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .application_wrapper{
+    grid-template-columns: 0 1fr;
+  }
+
+  nav {
+    /* transform margin into padding */
+    margin: 0;
+    padding: 15px 0;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    height: 100%;
+    width: 200px; /* matching grid template */
+    transform: translateX(-100%);
+    background-color: white;
+    transition: transform 0.5s;
+
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+
+  nav.open{
+    transform: translateX(0%);
+  }
+
+
+  .nav_background.visible {
+    opacity: 0.5;
+    visibility: visible;;
+  }
+
+  header .navigation_control{
+    transform: translateX(0%);
+
+  }
+}
+
+</style>
