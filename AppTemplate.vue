@@ -144,13 +144,6 @@ header {
 
   display: flex;
   align-items: stretch;
-
-
-  animation-name: top_apparition;
-  animation-duration: 0.5s;
-  animation-fill-mode: both;
-  animation-iteration-count: 1;
-
 }
 
 @keyframes top_apparition {
@@ -208,14 +201,6 @@ nav {
   background-color: white;
 
   transition: transform 0.5s;
-
-  /* ADDS DELAY TO TRANSITION */
-  /* THIS overrules the transition */
-  animation-name: left_apparition;
-  animation-duration: 0.5s;
-  animation-fill-mode: backwards;
-  animation-iteration-count: 1;
-
 }
 
 nav > * {
@@ -223,7 +208,7 @@ nav > * {
   font-size: 120%;
   text-align: center;
 
-  padding: 10px;
+  padding: 15px 0;
 
   text-decoration: none;
   color: #111111;
@@ -258,22 +243,13 @@ nav .mdi {
   transition: opacity 0.5s, visibility 0.5s;
 }
 
-
-
-
-
-
 main {
   grid-area: main;
-  padding: 15px;
   overflow-y: auto;
+}
 
-
-  animation-name: top_apparition;
-  animation-duration: 0.5s;
-  animation-fill-mode: both;
-  animation-iteration-count: 1;
-  animation-delay: 0.25s;
+main .router_view{
+  padding: 25px;
 }
 
 
@@ -301,7 +277,7 @@ footer .application_info{
   margin-left: 10px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .application_wrapper{
     grid-template-columns: 0 1fr;
   }
@@ -317,8 +293,6 @@ footer .application_info{
     z-index: 10;
     height: 100%;
     width: 200px; /* matching grid template */
-
-    animation-name: none;
 
   }
 
