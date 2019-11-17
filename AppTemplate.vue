@@ -8,42 +8,46 @@
         v-on:click="toggle_navigation()"/>
       <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
       <span class="application_name">{{applicationName}}</span>
+      <span class="mdi mdi-logout"/>
     </header>
 
-    <!-- What if there is no router? -->
-    <nav v-bind:class="{open: navigation_open}">
-      <!-- NAV items must be passed as props -->
-      <router-link
-        v-for="(navigationItem, index) in navigation"
-        v-bind:key="index"
-        v-bind:to="navigationItem.route">
-        <span
-          class="mdi"
-          v-bind:class="'mdi-' + navigationItem.icon">
-          {{navigationItem.label}}
-        </span>
-      </router-link>
-    </nav>
+    <!-- Not using grid so need an additional wrapper -->
+    <div class="columns_wrapper">
 
-    <div
-      class="nav_background"
-      v-bind:class="{visible: navigation_open}"
-      v-on:click="toggle_navigation()"/>
+      <nav
+        v-if="navigation.length > 0"
+        v-bind:class="{open: navigation_open}">
+        <!-- NAV items must be passed as props -->
+        <router-link
+          v-for="(navigationItem, index) in navigation"
+          v-bind:key="index"
+          v-bind:to="navigationItem.route">
+          <span
+            class="mdi"
+            v-bind:class="'mdi-' + navigationItem.icon">
+            {{navigationItem.label}}
+          </span>
+        </router-link>
+      </nav>
 
-    <main>
-      <router-view class="router_view"/>
-      <footer>
-        <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
-        <div class="application_info">
-          <div class="application_name">{{applicationName}}</div>
-          <div class="author_name">Maxime MOREILLON</div>
-        </div>
-      </footer>
-    </main>
+      <div
+        class="nav_background"
+        v-bind:class="{visible: navigation_open}"
+        v-on:click="toggle_navigation()"/>
+
+      <main>
+        <router-view class="router_view"/>
+        <footer>
+          <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
+          <div class="application_info">
+            <div class="application_name">{{applicationName}}</div>
+            <div class="author_name">Maxime MOREILLON</div>
+          </div>
+        </footer>
+      </main>
 
 
-
-
+    </div>
 
   </div>
 </template>
@@ -95,8 +99,6 @@ body {
 
   position: relative;
 
-  display: grid;
-
   /* font parameters */
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -105,15 +107,13 @@ body {
   /* default text color */
   color: #111111;
 
+  /* take all viewport */
   height: 100vh;
 
-  /* IE can go and die */
-  display: grid;
-  grid-template-areas:
-  'header header'
-  'nav main';
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: auto 1fr;
+  /* vertical layout */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .rotating_logo {
@@ -130,6 +130,7 @@ body {
 
 /* HEADER */
 header {
+  /* grid not used but kept just in case */
   grid-area: header;
 
   /* shadows */
@@ -146,17 +147,6 @@ header {
   align-items: stretch;
 }
 
-@keyframes top_apparition {
-  0% {transform: translateY(-200%);}
-  100% {transform: translateY(0);}
-}
-
-@keyframes left_apparition {
-  0% {transform: translateX(-200%);}
-  100% {transform: translateX(0);}
-}
-
-
 header > * {
   display: flex;
   align-items: center;
@@ -164,8 +154,6 @@ header > * {
   margin: 10px;
   /* keep only one margin width between elements */
   margin-right: 0px;
-
-
 }
 
 header > *:last-child {
@@ -186,13 +174,30 @@ header .navigation_control{
   cursor: pointer;
 }
 
+.columns_wrapper {
+  /* position relative to position nav */
+  position: relative;
+
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: row;
+}
+
 
 /* NAV */
 nav {
+  /* grid not used but kept just in case */
   grid-area: nav;
+
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 200px; /* matching with nav width when in mobile view */
 
   margin: 15px 0; /* for the border not to hit ends */
 
+  /* vertical layout using flex */
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -204,22 +209,24 @@ nav {
 }
 
 nav > * {
-
   font-size: 120%;
   text-align: center;
 
+  /* padding for space between nav items */
   padding: 15px 0;
 
   text-decoration: none;
   color: #111111;
 
-  transition: border-color 0.25s;
+
 
   border-right: 3px solid transparent;
+  transition: color 0.25s, border-color 0.25s;
 }
 
 nav a:hover {
   border-right: 3px solid #666666;
+  color: #666666;
 }
 nav a.router-link-exact-active {
   border-right: 3px solid #c00000;
@@ -244,8 +251,15 @@ nav .mdi {
 }
 
 main {
+  /* grid not used but kept just in case */
   grid-area: main;
   overflow-y: auto;
+
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+
+
 }
 
 main .router_view{
@@ -254,6 +268,7 @@ main .router_view{
 
 
 footer {
+  /* grid not used but kept just in case */
   grid-area: footer;
 
   /* clearing the nav bar and leaving space for the border top*/
