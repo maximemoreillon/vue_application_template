@@ -3,12 +3,14 @@
 
     <header>
       <span
-        class="mdi navigation_control"
+        class="mdi navigation_control button"
         v-bind:class="navigation_control_icon"
         v-on:click="toggle_navigation()"/>
       <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
       <span class="application_name">{{applicationName}}</span>
-      <span class="mdi mdi-logout"/>
+      <span
+        class="mdi mdi-logout aligned_right button"
+        v-on:click="logout()"/>
     </header>
 
     <!-- Not using grid so need an additional wrapper -->
@@ -21,10 +23,12 @@
         <router-link
           v-for="(navigationItem, index) in navigation"
           v-bind:key="index"
+
           v-bind:to="navigationItem.route">
           <span
             class="mdi"
-            v-bind:class="'mdi-' + navigationItem.icon">
+            v-bind:class="'mdi-' + navigationItem.icon"
+            v-on:click="close_navigation()">
             {{navigationItem.label}}
           </span>
         </router-link>
@@ -33,7 +37,7 @@
       <div
         class="nav_background"
         v-bind:class="{visible: navigation_open}"
-        v-on:click="toggle_navigation()"/>
+        v-on:click="close_navigation()"/>
 
       <main>
         <router-view class="router_view"/>
@@ -73,7 +77,15 @@ export default {
   },
   methods: {
     toggle_navigation(){
-      this.navigation_open = !this.navigation_open
+      this.navigation_open = !this.navigation_open;
+    },
+    close_navigation(){
+      this.navigation_open = false;
+    },
+    logout(){
+      this.axios.post('https://authentication.maximemoreillon.com/logout')
+      .then( () => location.reload() )
+      .catch(error => console.log(error))
     }
   },
   computed: {
@@ -164,15 +176,24 @@ header .rotating_logo {
   width: 35px;
 }
 
-header .aligned-right{
+header .aligned_right{
   margin-left: auto
+}
+
+header .button{
+  cursor: pointer;
+}
+
+header .button:hover{
+  color: #dddddd;
 }
 
 header .navigation_control{
   transform: translateX(-200%);
   transition: transform 0.5s;
-  cursor: pointer;
 }
+
+
 
 .columns_wrapper {
   /* position relative to position nav */
@@ -195,7 +216,8 @@ nav {
   flex-shrink: 0;
   flex-basis: 200px; /* matching with nav width when in mobile view */
 
-  margin: 15px 0; /* for the border not to hit ends */
+  /* for the border not to hit the header and the bottom of the page */
+  margin: 15px 0;
 
   /* vertical layout using flex */
   display: flex;
@@ -214,6 +236,7 @@ nav > * {
 
   /* padding for space between nav items */
   padding: 15px 0;
+
 
   text-decoration: none;
   color: #111111;
@@ -299,8 +322,11 @@ footer .application_info{
 
   nav {
     /* transform margin into padding */
+    /* This takes the border from upmost top to utmost bottom */
     margin: 0;
     padding: 15px 0;
+
+    border: none;
 
     position: absolute;
     top: 0;
