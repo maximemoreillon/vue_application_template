@@ -9,6 +9,7 @@
       <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
       <span class="application_name">{{applicationName}}</span>
       <span
+        v-if="!noLoginControls"
         class="mdi mdi-logout aligned_right button"
         v-on:click="logout()"/>
     </header>
@@ -69,6 +70,18 @@ export default {
         return []
       },
     },
+    slotted: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
+    noLoginControls: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
   },
   data(){
     return {
@@ -142,9 +155,6 @@ body {
 
 /* HEADER */
 header {
-  /* grid not used but kept just in case */
-  grid-area: header;
-
   /* shadows */
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   position: relative;
@@ -209,9 +219,6 @@ header .navigation_control{
 
 /* NAV */
 nav {
-  /* grid not used but kept just in case */
-  grid-area: nav;
-
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: 200px; /* matching with nav width when in mobile view */
@@ -274,8 +281,7 @@ nav .mdi {
 }
 
 main {
-  /* grid not used but kept just in case */
-  grid-area: main;
+
   overflow-y: auto;
 
   flex-grow: 1;
@@ -291,8 +297,6 @@ main .router_view{
 
 
 footer {
-  /* grid not used but kept just in case */
-  grid-area: footer;
 
   /* clearing the nav bar and leaving space for the border top*/
   margin: 0 10%;
@@ -316,9 +320,6 @@ footer .application_info{
 }
 
 @media only screen and (max-width: 800px) {
-  .application_wrapper{
-    grid-template-columns: 0 1fr;
-  }
 
   nav {
     /* transform margin into padding */
@@ -333,7 +334,7 @@ footer .application_info{
     left: 0;
     z-index: 10;
     height: 100%;
-    width: 200px; /* matching grid template */
+    width: 200px; /* matching flex basis */
 
   }
 
