@@ -286,7 +286,7 @@ main {
 }
 
 main .router_view{
-  padding: 25px;
+  
 }
 
 
