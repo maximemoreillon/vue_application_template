@@ -2,16 +2,25 @@
   <div class="application_wrapper">
 
     <header>
+      <!-- hamburger to open navigation -->
       <span
+        v-if="navigation.length > 0"
         class="mdi navigation_control button"
         v-bind:class="navigation_control_icon"
         v-on:click="toggle_navigation()"/>
+
+      <!-- Logo -->
       <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
+
+      <!-- application title -->
       <span class="application_name">{{applicationName}}</span>
+
+      <!-- Logout button -->
       <span
         v-if="!noLoginControls"
         class="mdi mdi-logout aligned_right button"
         v-on:click="logout()"/>
+
     </header>
 
     <!-- Not using grid so need an additional wrapper -->
@@ -20,18 +29,22 @@
       <nav
         v-if="navigation.length > 0"
         v-bind:class="{open: navigation_open}">
+        
         <!-- NAV items must be passed as props -->
         <router-link
           v-for="(navigationItem, index) in navigation"
           v-bind:key="index"
-
           v-bind:to="navigationItem.route">
+
+          <!-- Why have the onclick here? -->
+          <!-- Why have the icon and the text in the same span? -->
           <span
             class="mdi"
             v-bind:class="'mdi-' + navigationItem.icon"
             v-on:click="close_navigation()">
             {{navigationItem.label}}
           </span>
+
         </router-link>
       </nav>
 
@@ -292,7 +305,7 @@ main {
 }
 
 main .router_view{
-  
+
 }
 
 
