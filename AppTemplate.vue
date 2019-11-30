@@ -29,7 +29,7 @@
       <nav
         v-if="navigation.length > 0"
         v-bind:class="{open: navigation_open}">
-        
+
         <!-- NAV items must be passed as props -->
         <router-link
           v-for="(navigationItem, index) in navigation"
@@ -53,8 +53,11 @@
         v-bind:class="{visible: navigation_open}"
         v-on:click="close_navigation()"/>
 
+      <!-- Main. Note: footer is part of main -->
       <main>
         <router-view class="router_view"/>
+
+        <!-- footer -->
         <footer>
           <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
           <div class="application_info">
@@ -222,6 +225,7 @@ header .navigation_control{
   /* position relative to position nav */
   position: relative;
 
+  /* grow vertically */
   flex-grow: 1;
   flex-shrink: 0;
 
@@ -295,11 +299,15 @@ nav .mdi {
 
 main {
 
-  overflow-y: auto;
-
+  /* grow horizontally */
   flex-grow: 1;
   flex-shrink: 1;
-  flex-basis: 0;
+
+  /* Take all available vertical space */
+  height: 100%;
+
+  /* scroll only on main */
+  overflow-y: auto;
 
 
 }
@@ -354,8 +362,6 @@ footer .application_info{
   nav:not(.open){
     transform: translateX(-100%);
   }
-
-
 
   .nav_background.visible {
     opacity: 0.5;
