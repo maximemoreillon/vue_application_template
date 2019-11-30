@@ -26,6 +26,7 @@
     <!-- Not using grid so need an additional wrapper -->
     <div class="columns_wrapper">
 
+      <!-- left column : Nav -->
       <nav
         v-if="navigation.length > 0"
         v-bind:class="{open: navigation_open}">
@@ -138,6 +139,7 @@ body {
 
 .application_wrapper{
 
+  /* Forgot what for */
   position: relative;
 
   /* font parameters */
@@ -149,6 +151,7 @@ body {
   color: #111111;
 
   /* take all viewport */
+  /* NOT BEING HONORED */
   height: 100vh;
 
   /* vertical layout */
@@ -171,18 +174,24 @@ body {
 
 /* HEADER */
 header {
+
+  /* header size must be fixed */
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  /* flex for content */
+  display: flex;
+  align-items: stretch;
+
   /* shadows */
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   position: relative;
   z-index: 11;
 
+  /* coloring and sizing */
   background-color: #444444;
   color: white;
-
   font-size: 150%;
-
-  display: flex;
-  align-items: stretch;
 }
 
 header > * {
@@ -225,17 +234,20 @@ header .navigation_control{
   /* position relative to position nav */
   position: relative;
 
-  /* grow vertically */
-  flex-grow: 1;
-  flex-shrink: 0;
+  /* take all available vertical space */
+  height: 100%;
 
+  /* columns side by side */
   display: flex;
   flex-direction: row;
+
 }
 
 
 /* NAV */
 nav {
+
+  /* fixed width */
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: 200px; /* matching with nav width when in mobile view */
@@ -249,8 +261,8 @@ nav {
   align-items: stretch;
   border-right: 1px solid #dddddd;
 
+  /* additional visuals */
   background-color: white;
-
   transition: transform 0.5s;
 }
 
