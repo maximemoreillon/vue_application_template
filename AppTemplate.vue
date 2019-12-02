@@ -325,7 +325,7 @@ main {
 }
 
 main .router_view{
-  padding: 15px;
+  padding: 25px;
 }
 
 
