@@ -192,6 +192,9 @@ header {
   background-color: #444444;
   color: white;
   font-size: 150%;
+
+  /* DIRTY FIX */
+  max-height: 60px;
 }
 
 header > * {
