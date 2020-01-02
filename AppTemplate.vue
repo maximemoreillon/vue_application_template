@@ -23,53 +23,49 @@
 
     </header>
 
-    <!-- Not using grid so need an additional wrapper -->
-    <div class="columns_wrapper">
 
-      <!-- left column : Nav -->
-      <nav
-        v-if="navigation.length > 0"
-        v-bind:class="{open: navigation_open}">
+    <nav
+      v-if="navigation.length > 0"
+      v-bind:class="{open: navigation_open}">
 
-        <!-- NAV items must be passed as props -->
-        <router-link
-          v-for="(navigationItem, index) in navigation"
-          v-bind:key="index"
-          v-bind:to="navigationItem.route">
+      <!-- NAV items must be passed as props -->
+      <router-link
+        v-for="(navigationItem, index) in navigation"
+        v-bind:key="index"
+        v-bind:to="navigationItem.route">
 
-          <!-- Why have the onclick here? -->
-          <!-- Why have the icon and the text in the same span? -->
-          <span
-            class="mdi"
-            v-bind:class="'mdi-' + navigationItem.icon"
-            v-on:click="close_navigation()">
-            {{navigationItem.label}}
-          </span>
+        <!-- Why have the onclick here? -->
+        <!-- Why have the icon and the text in the same span? -->
+        <span
+          class="mdi"
+          v-bind:class="'mdi-' + navigationItem.icon"
+          v-on:click="close_navigation()">
+          {{navigationItem.label}}
+        </span>
 
-        </router-link>
-      </nav>
+      </router-link>
+    </nav>
 
-      <div
-        class="nav_background"
-        v-bind:class="{visible: navigation_open}"
-        v-on:click="close_navigation()"/>
+    <div
+      class="nav_background"
+      v-bind:class="{visible: navigation_open}"
+      v-on:click="close_navigation()"/>
 
-      <!-- Main. Note: footer is part of main -->
-      <main>
-        <router-view class="router_view"/>
+    <!-- Main. Note: footer is part of main -->
+    <main>
+      <router-view class="router_view"/>
 
-        <!-- footer -->
-        <footer>
-          <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
-          <div class="application_info">
-            <div class="application_name">{{applicationName}}</div>
-            <div class="author_name">Maxime MOREILLON</div>
-          </div>
-        </footer>
-      </main>
+      <!-- footer -->
+      <footer>
+        <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
+        <div class="application_info">
+          <div class="application_name">{{applicationName}}</div>
+          <div class="author_name">Maxime MOREILLON</div>
+        </div>
+      </footer>
+    </main>
 
 
-    </div>
 
   </div>
 </template>
@@ -150,14 +146,17 @@ body {
   /* default text color */
   color: #111111;
 
-  /* take all viewport */
-  /* NOT BEING HONORED */
+  /* span all viewport vertically*/
   height: 100vh;
+  width: 100%;
 
   /* vertical layout */
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  display: grid;
+  grid-template-areas:
+    'header header'
+    'nav main';
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr;
 }
 
 .rotating_logo {
@@ -174,10 +173,7 @@ body {
 
 /* HEADER */
 header {
-
-  /* header size must be fixed */
-  flex-grow: 0;
-  flex-shrink: 0;
+  grid-area: header;
 
   /* flex for content */
   display: flex;
@@ -193,8 +189,6 @@ header {
   color: white;
   font-size: 150%;
 
-  /* DIRTY FIX */
-  max-height: 60px;
 }
 
 header > * {
@@ -202,6 +196,7 @@ header > * {
   align-items: center;
 
   margin: 10px;
+
   /* keep only one margin width between elements */
   margin-right: 0px;
 }
@@ -233,27 +228,10 @@ header .navigation_control{
 
 
 
-.columns_wrapper {
-  /* position relative to position nav */
-  position: relative;
-
-  /* take all available vertical space */
-  height: 100%;
-
-  /* columns side by side */
-  display: flex;
-  flex-direction: row;
-
-}
-
-
 /* NAV */
 nav {
 
-  /* fixed width */
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: 200px; /* matching with nav width when in mobile view */
+  grid-area: nav;
 
   /* for the border not to hit the header and the bottom of the page */
   margin: 15px 0;
@@ -273,14 +251,11 @@ nav > * {
   font-size: 120%;
   text-align: center;
 
-  /* padding for space between nav items */
+  /* vertical space between nav items */
   padding: 15px 0;
-
 
   text-decoration: none;
   color: #111111;
-
-
 
   border-right: 3px solid transparent;
   transition: color 0.25s, border-color 0.25s;
@@ -314,20 +289,28 @@ nav .mdi {
 
 main {
 
+  grid-area: main;
+
   /* grow horizontally */
   flex-grow: 1;
   flex-shrink: 1;
 
-  /* Take all available vertical space */
-  height: 100%;
+  /* vertical layout */
+  display: flex;
+  flex-direction: column;
+
 
   /* scroll only on main */
+  /* NOT WORKING */
   overflow-y: auto;
 
 
 }
 
 main .router_view{
+
+  flex-grow: 1;
+
   padding: 25px;
 }
 
@@ -356,6 +339,10 @@ footer .application_info{
 }
 
 @media only screen and (max-width: 800px) {
+
+  .application_wrapper {
+    grid-template-columns: 0 1fr;
+  }
 
   nav {
     /* transform margin into padding */
