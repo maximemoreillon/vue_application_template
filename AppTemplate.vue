@@ -155,7 +155,7 @@ body {
   grid-template-areas:
     'header header'
     'nav main';
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
 }
 
@@ -232,6 +232,7 @@ header .navigation_control{
 nav {
 
   grid-area: nav;
+  width: 200px;
 
   /* for the border not to hit the header and the bottom of the page */
   margin: 15px 0;
@@ -290,6 +291,7 @@ nav .mdi {
 main {
 
   grid-area: main;
+  position: relative;
 
   /* grow horizontally */
   flex-grow: 1;
