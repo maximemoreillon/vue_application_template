@@ -1,2 +1,2 @@
-# vue_application_template
+# Vue application template
 A templating component for VueJS applications
