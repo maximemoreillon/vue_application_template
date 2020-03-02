@@ -17,7 +17,7 @@
 
       <!-- Logout button -->
       <span
-        v-if="!noLoginControls"
+        v-if="!noLoginControls && logged_in"
         class="mdi mdi-logout aligned_right button"
         v-on:click="logout()"/>
 
@@ -71,7 +71,15 @@
 </template>
 
 <script>
+/*
+This is not the right way to include mdi
+Importing all css results in a massive bundle size
+Use vue-material-design-icons instead
+*/
+
+/*
 import '@mdi/font/css/materialdesignicons.css';
+*/
 
 export default {
   name: 'AppTemplate',
@@ -111,15 +119,22 @@ export default {
       this.navigation_open = false;
     },
     logout(){
-      this.axios.post('https://authentication.maximemoreillon.com/logout')
-      .then( () => location.reload() )
-      .catch(error => console.log(error))
+      if(!this.$cookies) {
+        this.$cookies.remove('jwt')
+        location.reload()
+      }
     }
   },
   computed: {
     navigation_control_icon(){
       if(this.navigation_open) return "mdi-backburger"
       else return "mdi-menu"
+    },
+    logged_in(){
+      if(!this.$cookies) return false
+      if(this.$cookies.get('jwt')) return true
+      else return false
+
     }
   }
 }
