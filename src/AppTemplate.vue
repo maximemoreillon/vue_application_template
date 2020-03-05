@@ -5,12 +5,13 @@
       <!-- hamburger to open navigation -->
 
       <backburger-icon
+        class="navigation_control button"
         v-if="navigation.length > 0 && navigation_open"
         v-on:click="toggle_navigation()"/>
       <menu-icon
+        class="navigation_control button"
         v-else-if="navigation.length > 0 && !navigation_open"
         v-on:click="toggle_navigation()"/>
-
 
       <!-- Logo -->
       <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
@@ -137,6 +138,10 @@ export default {
     }
   },
   computed: {
+    navigation_control_icon(){
+      if(this.navigation_open) return "mdi-backburger"
+      else return "mdi-menu"
+    },
     logged_in(){
       if(!this.$cookies) return false
       if(this.$cookies.get('jwt')) return true
