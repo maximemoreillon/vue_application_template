@@ -3,11 +3,14 @@
 
     <header>
       <!-- hamburger to open navigation -->
-      <span
-        v-if="navigation.length > 0"
-        class="mdi navigation_control button"
-        v-bind:class="navigation_control_icon"
+
+      <backburger-icon
+        v-if="navigation.length > 0 && navigation_open"
         v-on:click="toggle_navigation()"/>
+      <menu-icon
+        v-else-if="navigation.length > 0 && !navigation_open"
+        v-on:click="toggle_navigation()"/>
+
 
       <!-- Logo -->
       <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
@@ -81,8 +84,16 @@ Use vue-material-design-icons instead
 import '@mdi/font/css/materialdesignicons.css';
 */
 
+import BackburgerIcon from 'vue-material-design-icons/Backburger.vue';
+import MenuIcon from 'vue-material-design-icons/Menu.vue';
+
+
 export default {
   name: 'AppTemplate',
+  components: {
+    BackburgerIcon,
+    MenuIcon,
+  },
   props: {
     applicationName: {
       type: String,
@@ -126,10 +137,6 @@ export default {
     }
   },
   computed: {
-    navigation_control_icon(){
-      if(this.navigation_open) return "mdi-backburger"
-      else return "mdi-menu"
-    },
     logged_in(){
       if(!this.$cookies) return false
       if(this.$cookies.get('jwt')) return true
