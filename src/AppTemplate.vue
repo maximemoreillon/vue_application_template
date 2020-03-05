@@ -26,14 +26,15 @@
 
       <!-- Logout button -->
       <template v-if="!noLoginControls">
-        <login-icon
-          class="aligned_right button"
-          v-if="logged_in"
-          v-on:click="login()"/>
+
         <logout-icon
           class="aligned_right button"
-          v-else
+          v-if="logged_in"
           v-on:click="logout()"/>
+        <login-icon
+          class="aligned_right button"
+          v-else
+          v-on:click="login()"/>
       </template>
 
 
