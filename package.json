@@ -1,6 +1,6 @@
 {
   "name": "@moreillon/vue_application_template",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "dist/AppTemplate.umd.js",
   "unpkg": "dist/AppTemplate.umd.min.js",
   "module": "dist/AppTemplate.esm.js",

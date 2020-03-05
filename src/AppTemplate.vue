@@ -2,28 +2,40 @@
   <div class="application_wrapper">
 
     <header>
-      <!-- hamburger to open navigation -->
-
-      <backburger-icon
-        class="navigation_control button"
-        v-if="navigation.length > 0 && navigation_open"
-        v-on:click="toggle_navigation()"/>
-      <menu-icon
-        class="navigation_control button"
-        v-else-if="navigation.length > 0 && !navigation_open"
-        v-on:click="toggle_navigation()"/>
+      <!-- hamburger to open and close navigation -->
+      <template v-if="navigation.length > 0 ">
+        <backburger-icon
+          class="navigation_control button"
+          v-if="navigation_open"
+          v-on:click="toggle_navigation()"/>
+        <menu-icon
+          class="navigation_control button"
+          v-else
+          v-on:click="toggle_navigation()"/>
+      </template>
 
       <!-- Logo -->
-      <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
+      <!-- TODO: Serve a local logo -->
+      <img
+        class="rotating_logo"
+        src="https://cdn.maximemoreillon.com/logo/thick/logo.svg"
+        alt="Logo">
 
       <!-- application title -->
       <span class="application_name">{{applicationName}}</span>
 
       <!-- Logout button -->
-      <span
-        v-if="!noLoginControls && logged_in"
-        class="mdi mdi-logout aligned_right button"
-        v-on:click="logout()"/>
+      <template v-if="!noLoginControls">
+        <login-icon
+          class="aligned_right button"
+          v-if="logged_in"
+          v-on:click="login()"/>
+        <logout-icon
+          class="aligned_right button"
+          v-else
+          v-on:click="logout()"/>
+      </template>
+
 
     </header>
 
@@ -40,6 +52,7 @@
 
         <!-- Why have the onclick here? -->
         <!-- Why have the icon and the text in the same span? -->
+        <!-- TODO: Find other way to add icons here -->
         <span
           class="mdi"
           v-bind:class="'mdi-' + navigationItem.icon"
@@ -61,7 +74,10 @@
 
       <!-- footer -->
       <footer>
-        <img class="rotating_logo" src="https://cdn.maximemoreillon.com/logo/thick/logo.svg" alt="">
+        <img
+          class="rotating_logo"
+          src="https://cdn.maximemoreillon.com/logo/thick/logo.svg"
+          alt="Logo">
         <div class="application_info">
           <div class="application_name">{{applicationName}}</div>
           <div class="author_name">Maxime MOREILLON</div>
@@ -75,18 +91,11 @@
 </template>
 
 <script>
-/*
-This is not the right way to include mdi
-Importing all css results in a massive bundle size
-Use vue-material-design-icons instead
-*/
-
-/*
-import '@mdi/font/css/materialdesignicons.css';
-*/
 
 import BackburgerIcon from 'vue-material-design-icons/Backburger.vue';
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
+import LoginIcon from 'vue-material-design-icons/Login.vue';
+import LogoutIcon from 'vue-material-design-icons/Logout.vue';
 
 
 export default {
@@ -94,6 +103,8 @@ export default {
   components: {
     BackburgerIcon,
     MenuIcon,
+    LoginIcon,
+    LogoutIcon
   },
   props: {
     applicationName: {
@@ -131,10 +142,13 @@ export default {
       this.navigation_open = false;
     },
     logout(){
-      if(!this.$cookies) {
+      if(this.$cookies) {
         this.$cookies.remove('jwt')
         location.reload()
       }
+    },
+    login(){
+      location.href = "https://authentication.maximemoreillon.com/"
     }
   },
   computed: {
