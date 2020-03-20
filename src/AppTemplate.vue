@@ -42,7 +42,7 @@
 
 
     <nav
-      v-if="navigation.length > 0"
+      v-if="navigation.length > 0 || this.$slots.navigation"
       v-bind:class="{open: navigation_open}">
 
       <!-- navigation items can be passed using this slot -->
