@@ -1,6 +1,6 @@
 {
   "name": "@moreillon/vue_application_template",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "main": "dist/AppTemplate.umd.js",
   "unpkg": "dist/AppTemplate.umd.min.js",
   "module": "dist/AppTemplate.esm.js",
@@ -22,7 +22,6 @@
     "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
-    "@mdi/font": "^4.8.95",
     "vue-material-design-icons": "^4.4.0"
   },
   "repository": {

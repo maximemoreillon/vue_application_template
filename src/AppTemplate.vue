@@ -45,7 +45,10 @@
       v-if="navigation.length > 0"
       v-bind:class="{open: navigation_open}">
 
-      <!-- NAV items must be passed as props -->
+      <!-- navigation items can be passed using this slot -->
+      <slot name="navigation" />
+
+      <!-- NAV items can be passed as props -->
       <router-link
         v-for="(navigationItem, index) in navigation"
         v-bind:key="index"
@@ -55,13 +58,11 @@
         <!-- Why have the icon and the text in the same span? -->
         <!-- TODO: Find other way to add icons here -->
         <span
-          class="mdi"
-          v-bind:class="'mdi-' + navigationItem.icon"
           v-on:click="close_navigation()">
           {{navigationItem.label}}
         </span>
-
       </router-link>
+
     </nav>
 
     <div
@@ -71,6 +72,7 @@
 
     <!-- Main. Note: footer is part of main -->
     <main>
+      <!-- the view itself -->
       <router-view class="router_view"/>
 
       <!-- footer -->
@@ -84,6 +86,9 @@
           <div class="author_name">Maxime MOREILLON</div>
         </div>
       </footer>
+
+      <!-- slot to add content in the main -->
+      <slot name="main" />
     </main>
 
 
@@ -384,6 +389,21 @@ footer .application_info{
   margin-left: 10px;
 }
 
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c00000;
+}
+
+
 @media only screen and (max-width: 800px) {
 
   .application_wrapper {
@@ -420,6 +440,17 @@ footer .application_info{
     transform: translateX(0%);
 
   }
+}
+
+/* Hide footer and header on small screens */
+@media only screen and (max-height: 400px) {
+  header {
+    display: none !important;
+  }
+  footer {
+    display: none !important;
+  }
+
 }
 
 </style>
