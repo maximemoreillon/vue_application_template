@@ -297,9 +297,13 @@ nav {
   transition: transform 0.5s;
 }
 
-nav > * {
+nav a {
   font-size: 120%;
   text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   /* vertical space between nav items */
   padding: 15px 0;
@@ -310,6 +314,18 @@ nav > * {
   border-right: 3px solid transparent;
   transition: color 0.25s, border-color 0.25s;
 }
+
+nav a > * {
+  /* aligning icons and text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav a > *:not(:last-child) {
+  margin-right: 5px;
+}
+
 
 nav a:hover {
   border-right: 3px solid #666666;
