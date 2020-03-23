@@ -3,7 +3,7 @@
 
     <header>
       <!-- hamburger to open and close navigation -->
-      <template v-if="navigation.length > 0 ">
+      <template v-if="navigation.length > 0 || this.$slots.navigation">
         <backburger-icon
           class="navigation_control button"
           v-if="navigation_open"
@@ -55,8 +55,6 @@
         v-bind:to="navigationItem.route">
 
         <!-- Why have the onclick here? -->
-        <!-- Why have the icon and the text in the same span? -->
-        <!-- TODO: Find other way to add icons here -->
         <span
           v-on:click="close_navigation()">
           {{navigationItem.label}}
