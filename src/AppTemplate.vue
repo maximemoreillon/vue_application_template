@@ -376,7 +376,7 @@ main .router_view{
 
   flex-grow: 1;
 
-  padding: 25px;
+  padding: 25px 2vw;
 }
 
 
