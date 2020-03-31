@@ -24,42 +24,21 @@
       <!-- application title -->
       <span class="application_name">{{applicationName}}</span>
 
-      <!-- Logout button -->
-      <template v-if="!noLoginControls">
-
-        <logout-icon
-          class="aligned_right button"
-          v-if="logged_in"
-          v-on:click="logout()"/>
-        <login-icon
-          class="aligned_right button"
-          v-else
-          v-on:click="login()"/>
-      </template>
+      <!-- Login status-->
+      <LoginStatus
+        class="aligned_right"
+        v-if="!noLoginControls"/>
 
 
     </header>
 
 
     <nav
-      v-if="navigation.length > 0 || this.$slots.navigation"
+      v-if="(navigation.length > 0 || this.$slots.navigation)"
       v-bind:class="{open: navigation_open}">
 
       <!-- navigation items can be passed using this slot -->
       <slot name="navigation" />
-
-      <!-- NAV items can be passed as props -->
-      <router-link
-        v-for="(navigationItem, index) in navigation"
-        v-bind:key="index"
-        v-bind:to="navigationItem.route">
-
-        <!-- Why have the onclick here? -->
-        <span
-          v-on:click="close_navigation()">
-          {{navigationItem.label}}
-        </span>
-      </router-link>
 
     </nav>
 
@@ -70,8 +49,9 @@
 
     <!-- Main. Note: footer is part of main -->
     <main>
-      <!-- the view itself -->
-      <router-view class="router_view"/>
+
+      <!-- slot to add content in the main -->
+      <slot />
 
       <!-- footer -->
       <footer>
@@ -85,8 +65,7 @@
         </div>
       </footer>
 
-      <!-- slot to add content in the main -->
-      <slot name="main" />
+
     </main>
 
 
@@ -96,11 +75,13 @@
 
 <script>
 
+import VueCookies from 'vue-cookies'
+
 import BackburgerIcon from 'vue-material-design-icons/Backburger.vue';
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
 import LoginIcon from 'vue-material-design-icons/Login.vue';
 import LogoutIcon from 'vue-material-design-icons/Logout.vue';
-
+import LoginStatus from '@moreillon/vue_login_status'
 
 export default {
   name: 'AppTemplate',
@@ -108,7 +89,8 @@ export default {
     BackburgerIcon,
     MenuIcon,
     LoginIcon,
-    LogoutIcon
+    LogoutIcon,
+    LoginStatus
   },
   props: {
     applicationName: {
@@ -138,6 +120,9 @@ export default {
       navigation_open: false,
     }
   },
+  mounted(){
+
+  },
   methods: {
     toggle_navigation(){
       this.navigation_open = !this.navigation_open;
@@ -146,26 +131,25 @@ export default {
       this.navigation_open = false;
     },
     logout(){
-      if(this.$cookies) {
-        this.$cookies.remove('jwt')
-        location.reload()
-      }
+      VueCookies.remove('jwt')
+      // Not very elegant way to deal with this
+      location.reload()
     },
     login(){
       location.href = "https://authentication.maximemoreillon.com/"
-    }
+    },
   },
   computed: {
     navigation_control_icon(){
       if(this.navigation_open) return "mdi-backburger"
       else return "mdi-menu"
     },
-    logged_in(){
-      if(!this.$cookies) return false
-      if(this.$cookies.get('jwt')) return true
-      else return false
 
-    }
+    logged_in(){
+      if(VueCookies.get('jwt')) return true
+      return false
+    },
+
   }
 }
 </script>
@@ -372,7 +356,8 @@ main {
 
 }
 
-main .router_view{
+/* selector a bit dangerous */
+main > *:first-child{
 
   flex-grow: 1;
 
@@ -403,7 +388,7 @@ footer .application_info{
   margin-left: 10px;
 }
 
-
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 3px;
   height: 3px;
@@ -426,7 +411,7 @@ footer .application_info{
 
   nav {
     /* transform margin into padding */
-    /* This takes the border from upmost top to utmost bottom */
+    /* This creates a gap between the border and the surrounding elements */
     margin: 0;
     padding: 15px 0;
 
