@@ -1,6 +1,6 @@
 {
   "name": "@moreillon/vue_application_template",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "rm -r dist && npm run build:umd & npm run build:es & npm run build:unpkg",

@@ -27,7 +27,9 @@
       <!-- Login status-->
       <LoginStatus
         class="aligned_right"
-        v-if="!noLoginControls"/>
+        v-if="!noLoginControls"
+        :authenticationApiUrl="authenticationApiUrl"
+        :authenticationFrontUrl="authenticationFrontUrl"/>
 
     </header>
 
@@ -82,8 +84,7 @@ import VueCookies from 'vue-cookies'
 
 import BackburgerIcon from 'vue-material-design-icons/Backburger.vue';
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
-import LoginIcon from 'vue-material-design-icons/Login.vue';
-import LogoutIcon from 'vue-material-design-icons/Logout.vue';
+
 import LoginStatus from '@moreillon/vue_login_status'
 
 export default {
@@ -91,8 +92,6 @@ export default {
   components: {
     BackburgerIcon,
     MenuIcon,
-    LoginIcon,
-    LogoutIcon,
     LoginStatus
   },
   props: {
@@ -116,7 +115,15 @@ export default {
       default() {
         return false
       }
-    }
+    },
+    authenticationApiUrl: {
+      type: String,
+      default(){return process.env.VUE_APP_AUTHENTICATION_API_URL}
+    },
+    authenticationFrontUrl: {
+      type: String,
+      default(){return process.env.VUE_APP_AUTHENTICATION_FRONT_URL}
+    },
   },
   data(){
     return {
@@ -132,14 +139,6 @@ export default {
     },
     close_navigation(){
       this.navigation_open = false;
-    },
-    logout(){
-      VueCookies.remove('jwt')
-      // Not very elegant way to deal with this
-      location.reload()
-    },
-    login(){
-      location.href = "https://authentication.maximemoreillon.com/"
     },
   },
   computed: {
@@ -363,7 +362,7 @@ nav .mdi {
 main {
 
   flex-grow: 1;
-  
+
 
 
 }
