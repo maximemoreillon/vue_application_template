@@ -2,10 +2,15 @@
   <div id="app">
     <AppTemplate
       applicationName="AppTemplate">
+
+      <!-- proper way to embed navigation -->
       <template v-slot:navigation>
+        <router-link to="/">Home</router-link>
         <router-link to="/banana">Banana</router-link>
       </template>
+
       <router-view />
+
     </AppTemplate>
   </div>
 </template>

@@ -18,7 +18,7 @@
       <!-- TODO: Serve a local logo -->
       <img
         class="rotating_logo"
-        src="https://cdn.maximemoreillon.com/logo/thick/logo.svg"
+        :src="logo_src"
         alt="Logo">
 
       <!-- application title -->
@@ -29,7 +29,6 @@
         class="aligned_right"
         v-if="!noLoginControls"/>
 
-
     </header>
 
 
@@ -37,27 +36,31 @@
       v-if="(navigation.length > 0 || this.$slots.navigation)"
       v-bind:class="{open: navigation_open}">
 
-      <!-- navigation items can be passed using this slot -->
+      <!-- navigation items are passed using this slot -->
       <slot name="navigation" />
 
     </nav>
 
+    <!-- the background of the navigation side panel -->
     <div
       class="nav_background"
       v-bind:class="{visible: navigation_open}"
       v-on:click="close_navigation()"/>
 
     <!-- Main. Note: footer is part of main -->
-    <main>
+    <div class="main_and_footer_wrapper">
 
-      <!-- slot to add content in the main -->
-      <slot />
+      <!-- main content passed using default slot -->
+      <main>
+        <slot />
+      </main>
+
 
       <!-- footer -->
       <footer>
         <img
           class="rotating_logo"
-          src="https://cdn.maximemoreillon.com/logo/thick/logo.svg"
+          :src="logo_src"
           alt="Logo">
         <div class="application_info">
           <div class="application_name">{{applicationName}}</div>
@@ -66,7 +69,7 @@
       </footer>
 
 
-    </main>
+    </div>
 
 
 
@@ -144,6 +147,10 @@ export default {
       if(this.navigation_open) return "mdi-backburger"
       else return "mdi-menu"
     },
+    logo_src(){
+      //return require('@/assets/logo.svg')
+      return 'https://cdn.maximemoreillon.com/logo/logo.svg'
+    },
 
     logged_in(){
       if(VueCookies.get('jwt')) return true
@@ -185,7 +192,7 @@ body {
   display: grid;
   grid-template-areas:
     'header header'
-    'nav main';
+    'nav main_and_footer';
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
 }
@@ -208,23 +215,21 @@ header {
 
   /* flex for content */
   display: flex;
-  align-items: stretch;
+  align-items: center;
 
   /* shadows */
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   position: relative;
-  z-index: 11;
+  z-index: 11; /* probably for shadows */
 
   /* coloring and sizing */
   background-color: #444444;
   color: white;
-  font-size: 150%;
+  font-size: 120%;
 
 }
 
 header > * {
-  display: flex;
-  align-items: center;
 
   margin: 10px;
 
@@ -237,7 +242,8 @@ header > *:last-child {
 }
 
 header .rotating_logo {
-  width: 35px;
+  width: 1.4em;
+  height: 1.4em;
 }
 
 header .aligned_right{
@@ -335,33 +341,31 @@ nav .mdi {
   transition: opacity 0.5s, visibility 0.5s;
 }
 
-main {
-
-  grid-area: main;
-  position: relative;
-
-  /* grow horizontally */
-  flex-grow: 1;
-  flex-shrink: 1;
+.main_and_footer_wrapper {
+  grid-area: main_and_footer;
 
   /* vertical layout */
   display: flex;
   flex-direction: column;
+  align-items: stretch;
 
 
   /* scroll only on main */
-  /* NOT WORKING */
   overflow-y: auto;
+
+  /* I don't remember why this was here*/
+  /* position: relative;*/
+
 
 
 }
 
-/* selector a bit dangerous */
-main > *:first-child{
+main {
 
   flex-grow: 1;
+  
 
-  padding: 25px 2vw;
+
 }
 
 
@@ -372,7 +376,7 @@ footer {
 
   border-top: 1px solid #dddddd;
 
-  padding: 15px;
+  padding: 1em;
 
   display: flex;
   justify-content: center;
@@ -381,7 +385,8 @@ footer {
 }
 
 footer .rotating_logo {
-  width: 40px;
+  width: 2.25em;
+  height: 2.25em;
 }
 
 footer .application_info{
