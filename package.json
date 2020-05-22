@@ -1,6 +1,6 @@
 {
   "name": "@moreillon/vue_application_template",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "rm -r dist && npm run build:umd & npm run build:es & npm run build:unpkg",
@@ -15,7 +15,7 @@
   },
   "unpkg": "dist/AppTemplate.umd.min.js",
   "dependencies": {
-    "@moreillon/vue_login_status": "^1.0.2",
+    "@moreillon/vue_login_status": "^1.0.3",
     "@vue/cli-service": "^4.3.1",
     "vue": "^2.6.10",
     "vue-cookies": "^1.7.0",

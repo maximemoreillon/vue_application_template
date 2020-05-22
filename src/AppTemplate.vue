@@ -27,7 +27,7 @@
       <!-- Login status-->
       <LoginStatus
         class="aligned_right"
-        v-if="!noLoginControls"
+        v-if="!noLoginControls && !!authenticationApiUrl && !!authenticationFrontUrl"
         :authenticationApiUrl="authenticationApiUrl"
         :authenticationFrontUrl="authenticationFrontUrl"/>
 
@@ -118,11 +118,9 @@ export default {
     },
     authenticationApiUrl: {
       type: String,
-      default(){return process.env.VUE_APP_AUTHENTICATION_API_URL}
     },
     authenticationFrontUrl: {
       type: String,
-      default(){return process.env.VUE_APP_AUTHENTICATION_FRONT_URL}
     },
   },
   data(){
