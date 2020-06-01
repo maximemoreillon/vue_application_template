@@ -27,7 +27,7 @@
       <!-- Login status-->
       <LoginStatus
         class="aligned_right"
-        v-if="!noLoginControls && !!authenticationApiUrl && !!authenticationFrontUrl"
+        v-if="!noLoginControls"
         :authenticationApiUrl="authenticationApiUrl"
         :authenticationFrontUrl="authenticationFrontUrl"/>
 
@@ -118,18 +118,21 @@ export default {
     },
     authenticationApiUrl: {
       type: String,
+      default: process.env.VUE_APP_AUTHENTICATION_API_URL,
     },
     authenticationFrontUrl: {
       type: String,
+      default: process.env.VUE_APP_AUTHENTICATION_FRONT_URL,
     },
   },
   data(){
     return {
       navigation_open: false,
+      logo_src : 'https://cdn.maximemoreillon.com/logo/thick/logo.svg'
     }
   },
   mounted(){
-
+    this.ie_detection()
   },
   methods: {
     toggle_navigation(){
@@ -138,15 +141,16 @@ export default {
     close_navigation(){
       this.navigation_open = false;
     },
+    ie_detection(){
+      if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > -1){
+         alert('Your browser is too old for this application. This may result in poor user experience.')
+      }
+    }
   },
   computed: {
     navigation_control_icon(){
       if(this.navigation_open) return "mdi-backburger"
       else return "mdi-menu"
-    },
-    logo_src(){
-      //return require('@/assets/logo.svg')
-      return 'https://cdn.maximemoreillon.com/logo/logo.svg'
     },
 
     logged_in(){

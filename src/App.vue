@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <AppTemplate
-      applicationName="AppTemplate"
-      authenticationApiUrl="http://172.16.98.151:30091"
-      authenticationFrontUrl="http://172.16.98.151:31091">
+      applicationName="AppTemplate">
 
       <!-- proper way to embed navigation -->
       <template v-slot:navigation>
