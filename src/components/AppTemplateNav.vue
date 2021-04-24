@@ -101,7 +101,7 @@ nav::after {
   border-right: 1px solid #dddddd;
 }
 
-a {
+nav a {
   color: inherit;
   padding: 0.5em 1em;
   display: flex;
@@ -112,7 +112,7 @@ a {
   border-right: 3px solid transparent;
 }
 
-a:hover {
+nav a:hover {
   color: #c00000;
   border-right: 3px solid #666666;
 }
@@ -122,7 +122,7 @@ nav a.router-link-exact-active {
 }
 
 
-a > * {
+nav a > * {
   margin-right: 1em;
 }
 

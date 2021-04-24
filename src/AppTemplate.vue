@@ -57,7 +57,7 @@
 import AppTemplateHeader from './components/AppTemplateHeader.vue'
 import AppTemplateNav from './components/AppTemplateNav.vue'
 import AppTemplateMain from './components/AppTemplateMain.vue'
-import AppTemplateFooter from './components/AppTemplateFooter.vue'
+//import AppTemplateFooter from './components/AppTemplateFooter.vue'
 import AppTemplateWall from './components/AppTemplateWall.vue'
 
 
@@ -79,7 +79,7 @@ export default {
     AppTemplateNav,
     AppTemplateHeader,
     AppTemplateMain,
-    AppTemplateFooter,
+    //AppTemplateFooter,
     AppTemplateWall,
   },
   mixins: [
@@ -96,6 +96,7 @@ export default {
     // User is in mixin
     user(){
       this.set_authorization_header()
+      this.$emit('userChanged', this.user)
     }
   },
   mounted(){
@@ -193,7 +194,7 @@ main {
 nav {
   padding: 0.5em 0;
   grid-area: nav;
-  width: 200px;
+  width: 250px;
   transition: 0.25s;
 }
 
@@ -226,6 +227,7 @@ footer {
   to {transform: rotate(360deg);}
 }
 
+/*
 button {
   background-color: transparent;
   color: currentColor;
@@ -252,6 +254,7 @@ button.bordered:hover:not(:disabled) {
 button:disabled{
   cursor: not-allowed;
 }
+*/
 
 .nav_background{
   display: none; /* THIS WILL NOT ANIMATE */

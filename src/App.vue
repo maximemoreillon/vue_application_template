@@ -1,27 +1,23 @@
 <template>
-  <div id="app">
-    <AppTemplate
-      :options="options">
+  <AppTemplate
+    :options="options"
+    @userChanged="get_user($event)">
 
-      <!-- proper way to embed navigation -->
-      <template v-slot:nav>
-        <router-link to="/">
-          <MenuIcon />
-          <span>Home</span>
-        </router-link>
-        <router-link to="/about">Banana</router-link>
-      </template>
+    <template v-slot:nav>
+      <router-link to="/">
+        <MenuIcon />
+        <span>Nav item</span>
+      </router-link>
+      <router-link to="/about">Banana</router-link>
+    </template>
 
-    </AppTemplate>
-  </div>
+  </AppTemplate>
 </template>
 
 <script>
 
 import AppTemplate from '@/AppTemplate.vue'
-
 import MenuIcon from 'vue-material-design-icons/Menu.vue'
-
 
 export default {
   name: 'App',
@@ -38,11 +34,12 @@ export default {
         identification_url: 'https://api.users.maximemoreillon.com/users/self'
       }
     }
+  },
+  methods: {
+    get_user(user){
+      console.log(user)
+      // Do something with the user
+    }
   }
-
 }
 </script>
-
-<style>
-
-</style>
