@@ -1,7 +1,7 @@
 <template>
   <AppTemplate
     :options="options"
-    @userChanged="get_user($event)">
+    @user="get_user($event)">
 
     <template v-slot:nav>
       <router-link to="/">

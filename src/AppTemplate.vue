@@ -96,7 +96,7 @@ export default {
     // User is in mixin
     user(){
       this.set_authorization_header()
-      this.$emit('userChanged', this.user)
+      this.$emit('user', this.user)
     }
   },
   mounted(){
