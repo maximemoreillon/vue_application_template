@@ -1,35 +1,50 @@
 {
   "name": "@moreillon/vue_application_template",
   "version": "2.0.0",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "rm -r dist && npm run build:umd & npm run build:es & npm run build:unpkg",
-    "build:es": "rollup --config build/rollup.config.js --format es --file dist/AppTemplate.esm.js",
-    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/AppTemplate.umd.js",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/AppTemplate.min.js"
-  },
   "main": "dist/AppTemplate.umd.js",
   "module": "dist/AppTemplate.esm.js",
+  "unpkg": "dist/AppTemplate.min.js",
   "browser": {
     "./sfc": "src/AppTemplate.vue"
   },
-  "unpkg": "dist/AppTemplate.umd.min.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/AppTemplate.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/AppTemplate.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/AppTemplate.min.js",
+    "lint": "vue-cli-service lint"
+  },
   "dependencies": {
-    "@moreillon/vue_login_status": "^1.0.4",
-    "@vue/cli-service": "^4.3.1",
-    "dotenv": "^8.2.0",
-    "vue": "^2.6.10",
-    "vue-cookies": "^1.7.0",
-    "vue-material-design-icons": "^4.6.0",
-    "vue-router": "^3.2.0",
-    "vue-template-compiler": "^2.6.10"
+    "@moreillon/vue_loader": "^1.0.1",
+    "axios": "^0.21.1",
+    "core-js": "^3.9.1",
+    "vue": "^2.6.11",
+    "vue-axios": "^3.2.4",
+    "vue-cookies": "^1.7.4",
+    "vue-cookies-reactive": "^2.0.5",
+    "vue-material-design-icons": "^4.11.0",
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-router": "^4.3.1",
-    "rollup": "^1.32.1",
-    "rollup-plugin-buble": "^0.19.8",
-    "rollup-plugin-commonjs": "^10.0.1",
-    "rollup-plugin-vue": "^5.1.7"
+    "@rollup/plugin-buble": "^0.21.3",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-image": "^2.0.6",
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-plugin-router": "^4.5.11",
+    "@vue/cli-plugin-vuex": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "rollup": "^1.17.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-vue": "^5.0.1",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.11"
   },
   "repository": {
     "type": "git",
