@@ -86,7 +86,7 @@ header {
 
 .navigation_control{
   cursor: pointer;
-  transform: translateX(-300%);
+  transform: translateX(-250%);
   transition: transform 0.5s;
 }
 
