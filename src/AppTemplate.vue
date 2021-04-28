@@ -292,7 +292,7 @@ nav:not(.open){
     top: 0;
     left: 0;
     */
-    z-index: 10;
+    z-index: 900;
 
     /* of columns_wrapper */
     /* WARNING: no parent when using grid */
