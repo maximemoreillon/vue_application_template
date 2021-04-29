@@ -178,12 +178,14 @@ body {
   overflow: hidden;
 }
 
+/*
 .columns_wrapper {
   position: relative;
   flex-grow: 1;
   display: flex;
   align-items: stretch;
 }
+*/
 
 main {
   grid-area: main;
@@ -227,34 +229,31 @@ footer {
   to {transform: rotate(360deg);}
 }
 
-/*
+
 button {
   background-color: transparent;
+  border-radius: 0.5em;
   color: currentColor;
+  border: 1px solid currentColor;
 
   cursor: pointer;
   padding: 0.25em 1em;
   transition: 0.25s;
-  border: none;
 }
 
-button.bordered {
-  border: 1px solid currentColor;
-}
 
-button:hover:not(:disabled){
+button:hover:not(:disabled) {
   color: #c00000;
-}
-
-button.bordered:hover:not(:disabled) {
-  background-color: #c0000011;
+  //background-color: #c0000011;
   border-color: #c00000;
 }
 
 button:disabled{
   cursor: not-allowed;
+  border-color: #888888;
+  color: #888888;
 }
-*/
+
 
 .nav_background{
   display: none; /* THIS WILL NOT ANIMATE */
@@ -264,6 +263,7 @@ button:disabled{
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 800;
 
   background-color: #00000044;
 

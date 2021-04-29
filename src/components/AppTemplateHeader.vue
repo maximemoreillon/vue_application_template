@@ -3,12 +3,12 @@
 
 
     <backburger-icon
-      class="navigation_control button"
+      class="navigation_control"
       v-if="nav_open"
       v-on:click="toggle_nav()"/>
 
     <menu-icon
-      class="navigation_control button"
+      class="navigation_control"
       v-else
       v-on:click="toggle_nav()"/>
 
@@ -84,7 +84,7 @@ header {
 }
 
 
-.navigation_control{
+header .navigation_control{
   cursor: pointer;
   transform: translateX(-250%);
   transition: transform 0.5s;
@@ -100,10 +100,10 @@ header > *:not(:last-child) {
   margin-right: 0.5em;
 }
 
-.spacer {
+header .spacer {
   flex-grow: 1;
 }
-.title {
+header .title {
   margin-right: auto;
 }
 
