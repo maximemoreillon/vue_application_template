@@ -74,7 +74,7 @@ nav {
   flex-direction: column;
   background-color: white;
 
-  z-index: 2;
+  /*z-index: 2;*/
 
   /* this animation runs when the comonent becomes visible */
   /* WARNING: animation clashes with retracted nav*/
