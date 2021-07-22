@@ -57,7 +57,7 @@ This component exchanges credentials for a JWT and manages the storage of the JW
 */
 
 import axios from 'axios'
-import VueCookies from 'vue-cookies'
+//import VueCookies from 'vue-cookies'
 
 import StoreMixin from '../mixins/store.js'
 
@@ -95,7 +95,8 @@ export default {
       axios.post(url, body)
       .then( ({data}) => {
         if(!data.jwt) return
-        VueCookies.set('jwt', data.jwt)
+        //VueCookies.set('jwt', data.jwt)
+        localStorage.jwt = data.jwt
         this.get_user()
 
         // clear the inputs

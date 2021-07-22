@@ -1,6 +1,6 @@
 {
   "name": "@moreillon/vue_application_template",
-  "version": "2.0.13",
+  "version": "3.0.1",
   "main": "dist/AppTemplate.umd.js",
   "module": "dist/AppTemplate.esm.js",
   "unpkg": "dist/AppTemplate.min.js",
@@ -21,7 +21,6 @@
     "core-js": "^3.9.1",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.4",
-    "vue-cookies": "^1.7.4",
     "vue-cookies-reactive": "^2.0.5",
     "vue-material-design-icons": "^4.11.0",
     "vue-router": "^3.5.1",

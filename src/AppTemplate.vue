@@ -64,7 +64,7 @@ import AppTemplateWall from './components/AppTemplateWall.vue'
 import StoreMixin from './mixins/store.js'
 
 //import axios from 'axios'
-import VueCookies from 'vue-cookies'
+//import VueCookies from 'vue-cookies'
 
 import 'vue-material-design-icons/styles.css'
 
@@ -126,7 +126,8 @@ export default {
       // check if axios is installed
       if(!this.axios) return
 
-      const jwt = VueCookies.get("jwt")
+      //const jwt = VueCookies.get("jwt")
+      const jwt = localStorage.jwt
 
       // wither set or unset the header depending on of jwt being in cookies
       if(jwt) this.axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
