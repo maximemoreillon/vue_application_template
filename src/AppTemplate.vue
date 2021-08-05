@@ -11,6 +11,7 @@
 
         <AppTemplateHeader
           :options="options"
+          :nav_exists="nav_exists"
           key="header">
           <!-- Additional header item -->
           <slot name="header"/>

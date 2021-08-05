@@ -3,7 +3,7 @@
     :options="options"
     @user="get_user($event)">
 
-    <template v-slot:nav>
+    <template v-slot:nav v-if="false">
       <router-link to="/">
         <MenuIcon />
         <span>Nav item</span>

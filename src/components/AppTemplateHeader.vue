@@ -1,16 +1,18 @@
 <template>
   <header>
 
+    <template v-if="nav_exists">
+      <backburger-icon
+        class="navigation_control"
+        v-if="nav_open"
+        v-on:click="toggle_nav()"/>
 
-    <backburger-icon
-      class="navigation_control"
-      v-if="nav_open"
-      v-on:click="toggle_nav()"/>
+      <menu-icon
+        class="navigation_control"
+        v-else
+        v-on:click="toggle_nav()"/>
+    </template>
 
-    <menu-icon
-      class="navigation_control"
-      v-else
-      v-on:click="toggle_nav()"/>
 
 
     <img
@@ -40,6 +42,7 @@ export default {
   name: 'AppTemplateHeader',
   props: {
     options: Object,
+    nav_exists: Boolean,
   },
   components: {
     LogoutButton,
