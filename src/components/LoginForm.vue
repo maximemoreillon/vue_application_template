@@ -98,9 +98,14 @@ export default {
         const {jwt} = data
         if(!jwt) return
 
-        //VueCookies.set('jwt', data.jwt)
-        //localStorage.jwt = jwt
-        VueCookie.set('jwt',jwt, {secure: location.protocol === 'https:', samesite: 'Strict'})
+        const cookie_options = {
+          secure: location.protocol === 'https:',
+          samesite: 'Strict',
+          expires: '1M',
+        }
+
+        VueCookie.set('jwt',jwt, cookie_options)
+        
         this.get_user()
 
         // clear the inputs
