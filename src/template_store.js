@@ -1,5 +1,5 @@
 import Vue from "vue"
-//import VueCookies from 'vue-cookies'
+import VueCookie from 'vue-cookie'
 import axios from 'axios'
 
 const state = Vue.observable({
@@ -26,8 +26,8 @@ const mutations = {
 
     this.set_state('loading')
 
-    //const jwt = VueCookies.get("jwt")
-    const jwt = localStorage.jwt
+    const jwt = VueCookie.get("jwt")
+    //const jwt = localStorage.jwt
     if(!jwt) {
       this.set_user(undefined)
       this.set_state('login')
@@ -55,8 +55,8 @@ const mutations = {
       console.error(error)
       this.set_user(undefined)
       this.set_state('login')
-      //VueCookies.remove('jwt')
-      localStorage.removeItem('jwt')
+      VueCookie.delete('jwt')
+      //localStorage.removeItem('jwt')
     })
 
   },

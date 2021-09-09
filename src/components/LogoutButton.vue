@@ -9,7 +9,7 @@
 This component exchanges credentials for a JWT and manages the storage of the JWT in cookies
 */
 
-//import VueCookies from 'vue-cookies'
+import VueCookie from 'vue-cookie'
 import LogoutIcon from 'vue-material-design-icons/Logout.vue'
 import StoreMixin from '../mixins/store.js'
 
@@ -22,8 +22,8 @@ export default {
   methods: {
 
     logout(){
-      //VueCookies.remove('jwt')
-      localStorage.removeItem('jwt')
+      VueCookie.delete('jwt')
+      //localStorage.removeItem('jwt')
       this.get_user()
     },
   },

@@ -65,7 +65,7 @@ import AppTemplateWall from './components/AppTemplateWall.vue'
 import StoreMixin from './mixins/store.js'
 
 //import axios from 'axios'
-//import VueCookies from 'vue-cookies'
+
 
 import 'vue-material-design-icons/styles.css'
 
