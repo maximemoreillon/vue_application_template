@@ -57,7 +57,6 @@ This component exchanges credentials for a JWT and manages the storage of the JW
 */
 
 import axios from 'axios'
-//import VueCookies from 'vue-cookies'
 import VueCookie from 'vue-cookie'
 
 import StoreMixin from '../mixins/store.js'
