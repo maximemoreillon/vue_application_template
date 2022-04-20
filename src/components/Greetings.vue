@@ -19,6 +19,7 @@ export default {
 
 <style scoped>
 .greetings {
+  user-select: none;
   font-size: 150%;
 }
 

@@ -3,12 +3,15 @@
     :options="options"
     @user="get_user($event)">
 
-    <template v-slot:nav v-if="false">
+    <template v-slot:nav >
       <router-link to="/">
         <MenuIcon />
-        <span>Nav item</span>
+        <span>Nav item 1</span>
       </router-link>
-      <router-link to="/about">Banana</router-link>
+      <router-link to="/about">
+        <MenuIcon />
+        <span>Nav item 2</span>
+      </router-link>
     </template>
 
   </AppTemplate>

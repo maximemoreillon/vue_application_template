@@ -105,7 +105,7 @@ export default {
         }
 
         VueCookie.set('jwt',jwt, cookie_options)
-        
+
         this.get_user()
 
         // clear the inputs
@@ -145,6 +145,7 @@ form {
 }
 
 .title {
+  user-select: none;
   font-size: 150%;
 }
 

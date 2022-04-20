@@ -51,6 +51,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .logo_wrapper{
+  user-select: none;
   /* This is a rotating frame for all logo elements */
 
   /* IE compatibility */
