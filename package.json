@@ -1,6 +1,6 @@
 {
   "name": "@moreillon/vue_application_template",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "main": "dist/AppTemplate.umd.js",
   "module": "dist/AppTemplate.esm.js",
   "unpkg": "dist/AppTemplate.min.js",
@@ -15,6 +15,8 @@
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/AppTemplate.min.js",
     "lint": "vue-cli-service lint"
   },
+  "author": "Maxime Moreillon",
+  "license": "MIT",
   "dependencies": {
     "@moreillon/vue_loader": "^1.0.5",
     "axios": "^0.21.1",
