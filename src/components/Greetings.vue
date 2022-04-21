@@ -14,8 +14,8 @@ export default {
       return AppTemplateStore.state.user
     },
     display_name(){
-      if(this.user.properties) return user.properties.display_name
-      else return user.display_name
+      if(this.user.properties) return this.user.properties.display_name
+      else return this.user.display_name
     }
   },
 
