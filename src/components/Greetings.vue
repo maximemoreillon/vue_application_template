@@ -1,6 +1,6 @@
 <template>
 <div class="greetings">
-  Welcome {{user.properties.display_name}}
+  Welcome {{display_name}}
 </div>
 </template>
 
@@ -13,7 +13,12 @@ export default {
     user(){
       return AppTemplateStore.state.user
     },
-  }
+    display_name(){
+      if(this.user.properties) return user.properties.display_name
+      else return user.display_name
+    }
+  },
+
 }
 </script>
 
