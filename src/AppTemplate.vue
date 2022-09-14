@@ -123,7 +123,6 @@ export default {
       this.$router.afterEach(() => {
         this.set_route_loading(false)
         if (this.options.login_url && this.options.identification_url && !this.user) {
-          console.log('User is not logged in!')
           this.get_user()
           return
         }
