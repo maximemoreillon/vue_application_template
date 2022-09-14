@@ -24,7 +24,8 @@ export default {
     logout(){
       VueCookie.delete('jwt')
       //localStorage.removeItem('jwt')
-      this.get_user()
+      this.set_user(undefined)
+      this.set_state('login')
     },
   },
 
