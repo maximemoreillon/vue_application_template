@@ -9,10 +9,7 @@ Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false
 
-router.beforeEach((to, from, next) => {
-  console.log('beforeEach')
-  next()
-})
+
 
 new Vue({
   router,

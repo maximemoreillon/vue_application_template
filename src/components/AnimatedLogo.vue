@@ -183,4 +183,14 @@ body.loaded .logo_layer_full{
   }
 }
 
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 </style>

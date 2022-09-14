@@ -27,8 +27,24 @@ const mutations = {
     this.set_state('loading')
 
     const jwt = VueCookie.get("jwt")
-    //const jwt = localStorage.jwt
+
+    // Having no JWT implies that the user it not logged in
     if(!jwt) {
+
+
+      
+      const urlPathName = new URL(location.href).pathname
+      // Check if route is allowed for anonymous users
+      if( this.$router && 
+        this.template_options.anonymous_routes && 
+        this.template_options.anonymous_routes.includes(urlPathName) )
+      {
+        this.set_state('content')
+        return
+      }
+
+      
+
       this.set_user(undefined)
       this.set_state('login')
       return
@@ -43,9 +59,7 @@ const mutations = {
 
       // This will show even if the user is logged in already at the time of opening the app
       this.set_state('greetings')
-      setTimeout(() => {
-        this.set_state('content')
-      },2000)
+      setTimeout(() => { this.set_state('content') },2000)
 
 
     })
@@ -56,7 +70,7 @@ const mutations = {
       this.set_user(undefined)
       this.set_state('login')
       VueCookie.delete('jwt')
-      //localStorage.removeItem('jwt')
+
     })
 
   },

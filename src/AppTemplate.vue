@@ -104,22 +104,29 @@ export default {
   mounted(){
     this.set_options(this.options)
     this.set_router_loading_events()
-    if(this.options.authenticate) this.get_user()
+    if (this.options.login_url && this.options.identification_url) this.get_user()
     else this.set_state('content')
   },
   methods: {
 
+    // Show loader in between routes
     set_router_loading_events(){
       // Check if router is installed
       if(!this.$router) return
 
       this.$router.beforeEach((to, from, next) => {
         this.set_route_loading(true)
+        
         next()
       })
 
       this.$router.afterEach(() => {
         this.set_route_loading(false)
+        if (this.options.login_url && this.options.identification_url && !this.user) {
+          console.log('User is not logged in!')
+          this.get_user()
+          return
+        }
       })
     },
 
@@ -192,7 +199,7 @@ body {
 main {
   grid-area: main;
   /* transitions for what ? */
-  //transition: 0.25s;
+  /* transition: 0.25s; */
 }
 
 nav {
@@ -246,7 +253,7 @@ button {
 
 button:hover:not(:disabled) {
   color: #c00000;
-  //background-color: #c0000011;
+  /* background-color: #c0000011; */
   border-color: #c00000;
 }
 
@@ -271,9 +278,6 @@ button:disabled{
 
 }
 
-nav:not(.open){
-
-}
 
 @media only screen and (max-width: 800px) {
 

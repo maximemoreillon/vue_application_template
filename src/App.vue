@@ -31,10 +31,10 @@ export default {
   data(){
     return {
       options: {
-        authenticate: true,
         title: 'Template example',
         login_url: 'https://api.users.maximemoreillon.com/auth/login',
-        identification_url: 'https://api.users.maximemoreillon.com/users/self'
+        identification_url: 'https://api.users.maximemoreillon.com/users/self',
+        anonymous_routes: ['/about']
       }
     }
   },
