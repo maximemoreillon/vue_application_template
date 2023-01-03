@@ -1,15 +1,7 @@
 <template>
-  <form
-    class=""
-    @submit.prevent="login()">
-
-    <div class="title">
-      {{options.title}}
-    </div>
-
+  <form class="" @submit.prevent="login()">
     <!-- username input -->
     <div class="">
-
       <AccountIcon />
 
       <input
@@ -17,13 +9,12 @@
         v-model="identifier"
         autocomplete="username"
         placeholder="Username"
-        :disabled="processing">
-
+        :disabled="processing"
+      />
     </div>
 
     <!-- Password input -->
     <div class="">
-
       <KeyIcon />
 
       <input
@@ -31,23 +22,20 @@
         v-model="password"
         autocomplete="password"
         placeholder="Password"
-        :disabled="processing">
-
+        :disabled="processing"
+      />
     </div>
 
     <!-- This submit input is hidden -->
-    <input type="submit" value="Login">
+    <input type="submit" value="Login" />
 
-    <button type="button"
-      @click="login()"
-      :disabled="processing">
+    <button type="button" @click="login()" :disabled="processing">
       <span>Login</span>
     </button>
 
     <div class="error">
-      {{error}}
+      {{ error }}
     </div>
-
   </form>
 </template>
 
@@ -56,16 +44,16 @@
 This component exchanges credentials for a JWT and manages the storage of the JWT in cookies
 */
 
-import axios from 'axios'
-import VueCookie from 'vue-cookie'
+import axios from "axios"
+import VueCookie from "vue-cookie"
 
-import StoreMixin from '../mixins/store.js'
+import StoreMixin from "../mixins/store.js"
 
-import AccountIcon from 'vue-material-design-icons/Account.vue'
-import KeyIcon from 'vue-material-design-icons/Key.vue'
+import AccountIcon from "vue-material-design-icons/Account.vue"
+import KeyIcon from "vue-material-design-icons/Key.vue"
 
 export default {
-  name: 'LoginForm',
+  name: "LoginForm",
   props: {
     options: Object,
   },
@@ -74,16 +62,16 @@ export default {
     KeyIcon,
     AccountIcon,
   },
-  data(){
+  data() {
     return {
-      identifier: '',
-      password: '',
+      identifier: "",
+      password: "",
       error: null,
       processing: false,
     }
   },
   methods: {
-    login(){
+    login() {
       // Send credentials and get JWT
 
       const url = this.options.login_url
@@ -92,51 +80,41 @@ export default {
       this.error = null
       this.processing = true
 
-      axios.post(url, body)
-      .then( ({data}) => {
+      axios
+        .post(url, body)
+        .then(({ data }) => {
+          const { jwt } = data
+          if (!jwt) return
 
-        const {jwt} = data
-        if(!jwt) return
+          const cookie_options = {
+            secure: location.protocol === "https:",
+            samesite: "Strict",
+            expires: "1M",
+          }
 
-        const cookie_options = {
-          secure: location.protocol === 'https:',
-          samesite: 'Strict',
-          expires: '1M',
-        }
+          VueCookie.set("jwt", jwt, cookie_options)
 
-        VueCookie.set('jwt',jwt, cookie_options)
+          this.get_user()
 
-        this.get_user()
-
-        // clear the inputs
-        this.identifier = ''
-        this.password = ''
-
-      })
-      .catch( (error) => {
-        if(error.response) this.error = error.response.data
-        else this.error = `Error while logging in`
-        console.error(error)
-       })
-      .finally(() => {
-
-        this.processing = false
-
-      })
+          // clear the inputs
+          this.identifier = ""
+          this.password = ""
+        })
+        .catch((error) => {
+          if (error.response) this.error = error.response.data
+          else this.error = `Error while logging in`
+          console.error(error)
+        })
+        .finally(() => {
+          this.processing = false
+        })
     },
-
-
-
   },
-  computed: {
-
-  }
+  computed: {},
 }
 </script>
 
 <style scoped>
-
-
 form {
   display: flex;
   flex-direction: column;
@@ -172,5 +150,4 @@ form input {
 form input[type="submit"] {
   display: none;
 }
-
 </style>

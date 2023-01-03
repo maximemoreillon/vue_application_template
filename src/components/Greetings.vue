@@ -1,31 +1,27 @@
 <template>
-<div class="greetings">
-  Welcome {{display_name}}
-</div>
+  <div class="greetings">Welcome {{ display_name }}</div>
 </template>
 
 <script>
-import AppTemplateStore from '../template_store.js'
+import AppTemplateStore from "../template_store.js"
 
 export default {
-  name: 'Greetings',
+  name: "Greetings",
   computed: {
-    user(){
+    user() {
       return AppTemplateStore.state.user
     },
-    display_name(){
-      if(this.user.properties) return this.user.properties.display_name
+    display_name() {
+      if (this.user.properties) return this.user.properties.display_name
       else return this.user.display_name
-    }
+    },
   },
-
 }
 </script>
 
 <style scoped>
 .greetings {
   user-select: none;
-  font-size: 150%;
+  font-size: 120%;
 }
-
 </style>
